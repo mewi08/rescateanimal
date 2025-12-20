@@ -23,10 +23,10 @@ class Animal extends Conexion{
         }
     }
 
-    public function agregar($registro=[]){
+    public function agregar($registro=[]): int{
         try{
             $sql="
-            INSERT INTO animal
+            INSERT INTO animales
             (idpersona, especie,sexo,condicion,rescate,lugar)
             VALUES(?,?,?,?,?,?) 
             ";
@@ -41,8 +41,21 @@ class Animal extends Conexion{
                     $registro['lugar']
                 )
             );
+            return $this->conexion->lastInsertId();
         }catch(Exception $e){
-
+            return -1;
         }
+    }
+    public function eliminar($id):int{
+        try{    
+            $sql= 'DELETE FROM animales WHERE idanimal=?';
+            $consulta= $this->conexion->prepare($sql);
+            $consulta->execute(
+                array($id)
+            );
+            return $consulta->rowCount();
+        }catch(Exception $e){
+            return -1;
+        }    
     }
 }
