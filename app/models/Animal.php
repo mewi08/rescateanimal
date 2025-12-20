@@ -58,4 +58,36 @@ class Animal extends Conexion{
             return -1;
         }    
     }
+    
+    public function actualizar($registro=[]):int{
+       try{
+            $sql="
+            UPDATE animales SET
+                idpersona = ?, 
+                especie = ?,
+                sexo = ?,
+                condicion = ?,
+                rescate = ?,
+                lugar = ?,
+                updated = now()
+            WHERE idanimal=? 
+            ";
+            $consulta= $this->conexion->prepare($sql);
+            $consulta->execute(
+                array(
+                    $registro['idpersona'],
+                    $registro['especie'],
+                    $registro['sexo'],
+                    $registro['condicion'],
+                    $registro['rescate'],
+                    $registro['lugar'],
+                    $registro['idanimal']
+                )
+            );
+            return $consulta->rowCount();
+        }catch(Exception $e){
+            return -1;
+        }
+
+    }
 }
