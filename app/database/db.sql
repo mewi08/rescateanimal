@@ -7,7 +7,6 @@ CREATE TABLE personas(
     dni         CHAR        (8)     UNIQUE NULL,
     nombres     VARCHAR     (60)    NOT NULL,
     apellidos   VARCHAR     (60)    NOT NULL,
-    tipo        ENUM ("Persona","Voluntario") NOT NULL,
     created     DATETIME            NOT NULL DEFAULT now() COMMENT "Campo de fecha de creación",
     updated     DATETIME            NULL COMMENT "Se agrega al detectar un cambio"
 )ENGINE=Innodb;
@@ -25,9 +24,9 @@ CREATE TABLE animales(
     FOREIGN KEY (idpersona) REFERENCES personas(idpersona)
 )ENGINE=Innodb;
 
-INSERT INTO personas(dni, nombres, apellidos, tipo) VALUES
-("61298242","Melanie Elizabeth","Tello Carbajal","Voluntario"),
-("60786100","Pepe","Peñaloza Vasquez","Voluntario");
+INSERT INTO personas(dni, nombres, apellidos) VALUES
+("61298242","Melanie Elizabeth","Tello Carbajal"),
+("60786100","Pepe","Peñaloza Vasquez");
 
 INSERT INTO animales(idpersona, especie, sexo, condicion,rescate,lugar) VALUES
 (1,"Gato","F","Grave","2025-12-20","Chincha Alta"),
@@ -38,6 +37,6 @@ SELECT idanimal, idpersona, especie, sexo, condicion, rescate, lugar
 FROM animales
 ORDER BY idanimal DESC;
 
-SELECT idpersona, dni, nombres, apellidos, tipo 
+SELECT idpersona, dni, nombres, apellidos 
 FROM personas
 ORDER BY idpersona DESC;
