@@ -3,21 +3,25 @@ CREATE DATABASE rescate;
 USE rescate;
 
 CREATE TABLE personas(
-    idpersona INT AUTO_INCREMENT PRIMARY KEY,
-    dni CHAR(8) UNIQUE NULL,
-    nombres VARCHAR(60) NOT NULL,
-    apellidos VARCHAR(60) NOT NULL,
-    tipo ENUM("Persona","Voluntario")
+    idpersona   INT AUTO_INCREMENT  PRIMARY KEY,
+    dni         CHAR        (8)     UNIQUE NULL,
+    nombres     VARCHAR     (60)    NOT NULL,
+    apellidos   VARCHAR     (60)    NOT NULL,
+    tipo        ENUM ("Persona","Voluntario") NOT NULL,
+    created     DATETIME            NOT NULL DEFAULT now() COMMENT "Campo de fecha de creación",
+    updated     DATETIME            NULL COMMENT "Se agrega al detectar un cambio"
 )ENGINE=Innodb;
 
 CREATE TABLE animales(
-    idanimal INT AUTO_INCREMENT PRIMARY KEY,
-    idpersona INT NOT NULL,
-    especie ENUM("Perro","Gato","Loro") NOT NULL,
-    sexo ENUM ("M","F") NOT NULL,
-    condicion ENUM ("Critico","Grave","Estable","Bueno") NOT NULL,
-    rescate DATE NOT NULL,
-    lugar VARCHAR(70) NOT NULL,
+    idanimal    INT AUTO_INCREMENT  PRIMARY KEY,
+    idpersona   INT                 NOT NULL,
+    especie     ENUM("Perro","Gato","Loro") NOT NULL,
+    sexo        ENUM ("M","F")      NOT NULL,
+    condicion   ENUM ("Critico","Grave","Estable","Bueno") NOT NULL,
+    rescate     DATE                NOT NULL,
+    lugar       VARCHAR(70)         NOT NULL,
+    created     DATETIME            NOT NULL DEFAULT now() COMMENT "Campo de fecha de creación",
+    updated     DATETIME            NULL COMMENT "Se agrega al detectar un cambio",
     FOREIGN KEY (idpersona) REFERENCES personas(idpersona)
 )ENGINE=Innodb;
 
