@@ -13,14 +13,13 @@
         <a href="#" class="btn btn-sm btn-primary">Registrar</a>
         <hr>
 
-        <table class="table table-striped">
+        <table class="table table-striped" id="tabla-persona">
             <thead>
                 <tr>
                     <th>ID</th>
                     <th>DNI</th>
                     <th>Nombres</th>
                     <th>Apellidos</th>
-                    <th>Condición</th>
                     <th>Operaciones</th>
                 </tr>
             </thead>
@@ -32,9 +31,33 @@
     </div>
 
     <script>
-        //Verificar que toda la pagina esté cargada (lista)
         document.addEventListener("DOMContentLoaded", function(){
-            console.log("Página lista");
+           function obtenerDatos(){
+            const datos = new FormData()
+            datos.append("operacion","listar") 
+            fetch('../../app/controllers/persona.controller.php',{
+                method: "POST",
+                body: datos
+            })
+            .then(response => response.json())
+            .then(data =>{
+                const tabla = document.querySelector("#tabla-persona tbody")
+                data.forEach(element => {
+                    tabla.innerHTML +=`
+                    <tr>
+                        <td> ${element.idpersona} </td>    
+                        <td> ${element.dni} </td>   
+                        <td> ${element.nombres} </td>    
+                        <td> ${element.apellidos} </td>  
+                        <td>
+                            <a href='#' class='btn btn-sm btn-danger'>Eliminar</a>
+                            <a href='#' class='btn btn-sm btn-info'>Editar</a>
+                        </td>
+                    </tr>`;
+                });
+            })
+        }
+        obtenerDatos()
         })
     </script>
 </body>
