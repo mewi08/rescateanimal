@@ -86,4 +86,22 @@ class Persona extends Conexion{
             return -1;
         }
     }
+    public function buscar($id){
+         try{
+            $sql = "
+            SELECT idpersona, dni, nombres, apellidos 
+            FROM personas
+            ORDER BY idpersona DESC";
+
+            $consulta = $this->conexion->prepare($sql);
+            
+            $consulta->execute(
+                array($id)                
+            );
+
+            return $consulta->fetchAll(PDO::FETCH_ASSOC);
+        }catch(Exception $e){
+            return [];
+        }
+    }
 }

@@ -88,6 +88,23 @@ class Animal extends Conexion{
         }catch(Exception $e){
             return -1;
         }
+    }
+    public function buscar($id){
+        try{
+            $sql="
+            SELECT idanimal, idpersona, especie, sexo, condicion, rescate, lugar 
+            FROM animales
+            WHERE idanimal=?";
+        
+            $consulta= $this->conexion->prepare($sql);   
+            
+            $consulta->execute(
+                array($id)
+            );
+            return $consulta->fetchAll(PDO::FETCH_ASSOC);
+        }catch(Exception $e){
+            return [];
+        }
 
     }
 }
