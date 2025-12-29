@@ -53,7 +53,7 @@
                         <td>${element.especie}</td>
                         <td>${element.sexo}</td>
                         <td>${element.condicion}</td>
-                        <td>${element.rescate}</td>
+                        <td>${element.fecharescate}</td>
                         <td>${element.lugar}</td>
                         <td>
                             <a href='#' class='btn btn-sm btn-danger'>Eliminar</a>

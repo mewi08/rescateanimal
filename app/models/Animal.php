@@ -11,10 +11,23 @@ class Animal extends Conexion{
     public function listar(): array{
         try{
             $sql="
-            SELECT idanimal, idpersona, especie, sexo, condicion, rescate, lugar 
-            FROM animales
-            ORDER BY idanimal DESC";
-        
+            SELECT 
+                animal.idanimal,
+                persona.nombres AS Rescatista,
+                animal.nombre,
+                animal.especie,
+                animal.sexo,
+                animal.condicion,
+                animal.fecharescate, 
+                animal.lugar,
+                animal.observaciones,
+                animal.foto 
+            FROM animales AS animal
+            INNER JOIN personas AS persona
+                ON animal.idpersona = persona.idpersona
+            WHERE animal.activo ='1'
+            ORDER BY animal.idanimal DESC";
+                    
             $consulta= $this->conexion->prepare($sql);   
             $consulta->execute();
             return $consulta->fetchAll(PDO::FETCH_ASSOC);
@@ -27,18 +40,22 @@ class Animal extends Conexion{
         try{
             $sql="
             INSERT INTO animales
-            (idpersona, especie,sexo,condicion,rescate,lugar)
-            VALUES(?,?,?,?,?,?) 
+            (idpersona, nombre, especie, sexo, condicion, fecharescate, lugar, observaciones, foto, activo)
+            VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?) 
             ";
             $consulta= $this->conexion->prepare($sql);
             $consulta->execute(
                 array(
                     $registro['idpersona'],
+                    $registro['nombre'],
                     $registro['especie'],
                     $registro['sexo'],
                     $registro['condicion'],
-                    $registro['rescate'],
-                    $registro['lugar']
+                    $registro['fecharescate'],
+                    $registro['lugar'],
+                    $registro['observaciones'],
+                    $registro['foto'],
+                    $registro['activo'] = 1,
                 )
             );
             return $this->conexion->lastInsertId();
@@ -48,7 +65,10 @@ class Animal extends Conexion{
     }
     public function eliminar($id):int{
         try{    
-            $sql= 'DELETE FROM animales WHERE idanimal=?';
+            $sql= '
+            UPDATE animales SET 
+                activo = 0
+            WHERE idanimal=?';
             $consulta= $this->conexion->prepare($sql);
             $consulta->execute(
                 array($id)
@@ -64,11 +84,15 @@ class Animal extends Conexion{
             $sql="
             UPDATE animales SET
                 idpersona = ?, 
+                nombre = ?,
                 especie = ?,
                 sexo = ?,
                 condicion = ?,
-                rescate = ?,
+                fecharescate = ?,
                 lugar = ?,
+                observaciones = ?;
+                foto = ?,
+                activo = 1,
                 updated = now()
             WHERE idanimal=? 
             ";
@@ -76,11 +100,14 @@ class Animal extends Conexion{
             $consulta->execute(
                 array(
                     $registro['idpersona'],
+                    $registro['nombre'],
                     $registro['especie'],
                     $registro['sexo'],
                     $registro['condicion'],
-                    $registro['rescate'],
+                    $registro['fecharescate'],
                     $registro['lugar'],
+                    $registro['observaciones'],
+                    $registro['foto'],
                     $registro['idanimal']
                 )
             );
@@ -89,21 +116,41 @@ class Animal extends Conexion{
             return -1;
         }
     }
-    public function buscar($id){
+    public function buscarPorId($id): array{
         try{
-            $sql="
-            SELECT idanimal, idpersona, especie, sexo, condicion, rescate, lugar 
-            FROM animales
-            WHERE idanimal=?";
+            $sql="SELECT * from animales WHERE activo =1 AND idanimal = ?";
         
             $consulta= $this->conexion->prepare($sql);   
             
-            $consulta->execute(
-                array($id)
-            );
+            $consulta->execute(array($id));
             return $consulta->fetchAll(PDO::FETCH_ASSOC);
         }catch(Exception $e){
-            return [];
+            die($e->getMessage());
+        }
+    }
+
+    public function buscarPorcondicion($condicion){
+        try{
+            $sql="SELECT * FROM animales WHERE condicion=? AND activo=1";
+            $consulta = $this->conexion->prepare($sql);
+            $consulta->execute(array($condicion));
+            return $consulta->fetchAll(PDO::FETCH_ASSOC);
+        }catch(Exception $e){
+            die($e->getMessage());
+        }
+    }
+
+    public function buscarPorEstado($estado){
+        try{
+            $sql="SELECT * FROM animales WHERE activo = 1 AND estado =?";
+
+            $consulta = $this->conexion->prepare($sql);
+            
+            $consulta->execute(array($estado));
+
+            return $consulta->fetchAll(PDO::FETCH_ASSOC);
+        }catch(Exception $e){
+            die($e->getMessage());
         }
 
     }

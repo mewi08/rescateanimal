@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kindy | Un amigo te espera</title>
+    <!-- Bootstrap 5.3 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts: Quicksand (Redonda y amable) -->
+    <link href="fonts.googleapis.com" rel="stylesheet">
+    <style>
+        :root {
+            --kindy-peach: #ffeadb;
+            --kindy-sage: #e2efde;
+            --kindy-text: #4a4a4a;
+            --kindy-accent: #4caf8f; 
+        }
+
+        body {
+            background-color: #fafafa;
+            font-family: 'Quicksand', sans-serif;
+            color: var(--kindy-text);
+        }
+
+        /* HEADER FLOTANTE */
+        .header-kindy {
+            background: white;
+            border-radius: 20px;
+            margin-top: 20px;
+            padding: 15px 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+        }
+
+        /* SECCIONES EN CAPSULAS */
+        .capsule-section {
+            background: white;
+            border-radius: 40px;
+            padding: 60px 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+            border: 1px solid #f0f0f0;
+        }
+
+        .img-rounded {
+            border-radius: 30px;
+            object-fit: cover;
+            height: 400px;
+            width: 100%;
+        }
+
+        /* BOTONES SOFT */
+        .btn-kindy {
+            background-color: var(--kindy-accent);
+            color: white;
+            border-radius: 15px;
+            padding: 12px 35px;
+            border: none;
+            font-weight: 700;
+            transition: 0.3s;
+        }
+
+        .btn-kindy:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(255, 138, 92, 0.2);
+            color: white;
+        }
+
+        /* CARDS DE BLOG SIMPLES */
+        .blog-card {
+            background-color: var(--kindy-sage);
+            border-radius: 25px;
+            padding: 30px;
+            border: none;
+            height: 100%;
+        }
+
+        .footer-kindy {
+            background: white;
+            border-radius: 50px 50px 0 0;
+            padding: 60px 0 30px;
+            margin-top: 80px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <div class="container">
+        <header class="header-kindy d-flex justify-content-between align-items-center">
+            <a href="#" class="fw-bold fs-4 text-decoration-none" style="color: var(--kindy-accent);">Huellas Solidarias.</a>
+            <nav class="d-none d-md-flex gap-4">
+                <a href="#" class="text-muted text-decoration-none fw-semibold">Historias</a>
+                <a href="#" class="text-muted text-decoration-none fw-semibold">Blog</a>
+                <a href="#" class="text-muted text-decoration-none fw-semibold">Contacto</a>
+            </nav>
+            <a href="#" class="btn btn-outline-secondary rounded-pill px-4 fw-bold border-2">Reportar</a>
+        </header>
+    </div>
+
+    <main class="container mt-5">
+        
+        <!-- SECCIÓN 1: BIENVENIDA (FLEX REVERSO) -->
+        <section class="capsule-section">
+            <div class="row align-items-center flex-column-reverse flex-lg-row">
+                <div class="col-lg-6 pe-lg-5">
+                    <h1 class="display-4 fw-bold mb-4">¿Listo para una <span style="color: var(--kindy-accent);">nueva amistad?</span></h1>
+                    <p class="fs-5 mb-4 opacity-75">En Huellas Solidarias creemos que cada animal merece una segunda oportunidad. Descubre a quienes esperan un hogar lleno de cariño y una familia que los acompañe toda la vida.</p>
+
+                    <button href="./views/animal/listar.php" class="btn-kindy">Conocer mascotas</button>
+                </div>
+                <div class="col-lg-6 mb-4 mb-lg-0">
+                    <img src="./public/images/image1.jpg" alt="Amigo" class="img-rounded shadow-sm">
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 2: BLOG / ARTÍCULOS (DISEÑO LIMPIO) -->
+        <div class="row g-4 mb-5">
+            <div class="col-md-4">
+                <div class="blog-card">
+                    <h4 class="fw-bold">Guía de cuidados</h4>
+                    <p>Todo lo que necesitas saber para recibir a tu nuevo integrante con amor y paciencia.</p>
+                    <a href="#" class="fw-bold text-dark text-decoration-none">Leer más →</a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="blog-card" style="background-color: var(--kindy-peach);">
+                    <h4 class="fw-bold">Alimentación</h4>
+                    <p>Descubre cuáles son los mejores alimentos naturales para mantener su cola siempre feliz.</p>
+                    <a href="#" class="fw-bold text-dark text-decoration-none">Leer más →</a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="blog-card" style="background-color: #e0e7ff;">
+                    <h4 class="fw-bold">Salud Mental</h4>
+                    <p>El juego es vital. Aprende rutinas de ejercicios para perros que viven en departamentos.</p>
+                    <a href="#" class="fw-bold text-dark text-decoration-none">Leer más →</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECCIÓN 3: CONCIENCIA (DISEÑO CENTRADO) -->
+        <section class="capsule-section text-center" style="background-color: #fff4f4; border: none;">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <h2 class="fw-bold mb-4">No los dejes solos</h2>
+                    <p class="fs-5 mb-4">El abandono es una realidad triste, pero juntos podemos cambiarla. Si ves a un peludo en problemas, avísanos. Cada reporte cuenta.</p>
+                    
+                    <button class="btn btn-dark rounded-pill px-5 py-3 fw-bold">Reportar ahora</button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER REDONDEADO -->
+    <footer class="footer-kindy shadow-sm">
+        <div class="container text-center">
+            <div class="row g-4 justify-content-between text-md-start">
+                <div class="col-md-4">
+                    <h3 class="fw-bold" style="color: var(--kindy-accent);">Huellas Solidarias.</h3>
+                    <p class="opacity-75">Cuidamos cada huella, unimos cada corazón. Proyecto 2025.</p>
+                </div>
+                <div class="col-md-2">
+                    <h6 class="fw-bold">Comunidad</h6>
+                    <ul class="list-unstyled opacity-75">
+                        <li>Adopciones</li>
+                        <li>Donaciones</li>
+                        <li>Historias</li>
+                    </ul>
+                </div>
+                <div class="col-md-2">
+                    <h6 class="fw-bold">Social</h6>
+                    <ul class="list-unstyled opacity-75">
+                        <li>Instagram</li>
+                        <li>TikTok</li>
+                    <li>Facebook</li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-5 opacity-25">
+            <p class="mb-0 small opacity-50">&copy; 2025 Huellas Solidarias — Hecho con amor en Chincha Baja.</p>
+        </div>
+    </footer>
+
+    <script src="cdn.jsdelivr.net"></script>
+</body>
+</html>
